@@ -29,11 +29,11 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('name', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'Credenciales invalidas'], 401);
         }
         //$user = User::all();
-        $user = User::where('name', $request->name)->first();
+        $user = User::where('email', $request->email)->first();
         $token = $request->user()->createToken('auth_token')->plainTextToken;
         return response()->json(
             [
